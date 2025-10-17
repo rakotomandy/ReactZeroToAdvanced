@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>React from Scratch</title>
+
+    <!-- Load React core library -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+
+    <!-- Load ReactDOM to render React components to the browser DOM -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Load Babel to convert JSX syntax into pure JavaScript -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Root container where React will inject everything -->
+    <div id="root"></div>
+
+    <!-- We use type="text/babel" so Babel can compile JSX -->
+    <script type="text/babel">
+      /*****************************************************
+       * 1️⃣ FIRST REACT COMPONENT
+       *****************************************************/
+      // Define a function component that returns JSX
+      function Hello() {
+        return <h1>Hello React!</h1>;
+      }
+
+      // Render the component into the root div
+      ReactDOM.createRoot(document.getElementById("root")).render(<Hello />);
+
+      /*****************************************************
+       * 2️⃣ JSX EXAMPLE
+       *****************************************************/
+      // JSX is JavaScript + XML (HTML-like syntax)
+      // We can use curly braces {} to inject JS expressions
+      const name = "Eric";
+      const element = <h2>Welcome, {name}!</h2>;
+
+      // Render the new element
+      // Comment out the previous render line to test this one
+      // ReactDOM.createRoot(document.getElementById("root")).render(element);
+
+      /*****************************************************
+       * 3️⃣ MULTIPLE COMPONENTS
+       *****************************************************/
+      function Title() {
+        return <h1>My First React Page</h1>;
+      }
+
+      function Greeting() {
+        return <p>Hello from React!</p>;
+      }
+
+      // A parent component combining both
+      function App() {
+        return (
+          <div>
+            <Title />
+            <Greeting />
+          </div>
+        );
+      }
+
+      // Render everything by calling the parent component
+      // ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+  </body>
+</html>
+
+<!-- -----------------------------------------------------
+📘 EXPLANATIONS
+-------------------------------------------------------
+
+1️⃣  <script src="https://unpkg.com/react@18/...">
+     - Loads the React library that manages components and state.
+
+2️⃣  <script src="https://unpkg.com/react-dom@18/...">
+     - Allows React to connect to the browser’s real DOM to display components.
+
+3️⃣  <script src="https://unpkg.com/@babel/standalone/babel.min.js">
+     - JSX (like <h1>Hello</h1>) is not understood by browsers.
+       Babel translates it into standard JavaScript.
+
+4️⃣  <div id="root"></div>
+     - This is the only real HTML element on the page.
+       React will take control of it and inject content dynamically.
+
+5️⃣  function Hello() { return <h1>Hello React!</h1>; }
+     - A React component is a JavaScript function that returns JSX.
+
+6️⃣  ReactDOM.createRoot(...).render(<Hello />);
+     - Creates a React root and renders the <Hello /> component inside the #root div.
+
+7️⃣  const element = <h2>Welcome, {name}!</h2>;
+     - Shows how to embed variables inside JSX using curly braces { }.
+
+8️⃣  The App() component combines other components:
+        <Title /> and <Greeting /> are child components.
+        React encourages building UIs from small reusable parts.
+
+----------------------------------------------------- -->

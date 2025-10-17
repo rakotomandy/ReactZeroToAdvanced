@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Props Example</title>
+  </head>
+  <body>
+    <!-- Root container where React will render content -->
+    <div class="js-container"></div>
+
+    <!-- Load React, ReactDOM, and Babel -->
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+    <script type="text/babel">
+      /****************************************************
+       * 1️⃣ CHILD COMPONENT: RECEIVES PROPS FROM PARENT
+       ****************************************************/
+      function UserCard(props) {
+        // Accessing props passed from the parent component
+        return (
+          <div>
+            <p>NAME: {props.name}</p>
+            <p>AGE: {props.age}</p>
+            <h3>{props.message}</h3>
+            <hr />
+          </div>
+        );
+      }
+
+      /****************************************************
+       * 2️⃣ PARENT COMPONENT: SENDS DATA VIA PROPS
+       ****************************************************/
+      function App() {
+        return (
+          <div>
+            {/* Pass data as attributes (props) to the child component */}
+            <UserCard name="Shilpa" age="30" message="Welcome to React!" />
+            <UserCard name="Eric" age="25" message="Happy to learn React!" />
+          </div>
+        );
+      }
+
+      /****************************************************
+       * 3️⃣ RENDER THE PARENT COMPONENT
+       ****************************************************/
+      const container = document.querySelector(".js-container");
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>
+
+<!-- -----------------------------------------------------
+📘 DETAILED EXPLANATIONS
+-------------------------------------------------------
+
+1️⃣  function UserCard(props) { ... }
+     - A React component that accepts one argument: "props".
+     - "props" is a plain object that holds all the data you pass
+       when calling the component (like name, age, message).
+
+     Example:
+        <UserCard name="Shilpa" age="30" message="Welcome to React!" />
+     makes props = { name: "Shilpa", age: "30", message: "Welcome to React!" }
+
+2️⃣  {props.name} and {props.age}
+     - Curly braces let you insert JavaScript expressions inside JSX.
+     - This dynamically displays values from props instead of hardcoding them.
+
+3️⃣  <App />
+     - The parent component that decides what data to pass to each <UserCard>.
+
+4️⃣  Reusability:
+     - Instead of writing the same markup twice for each user,
+       we reuse <UserCard /> and just change the props.
+       This is one of React’s biggest advantages.
+
+5️⃣  const container = document.querySelector('.js-container');
+     - Selects the div in which React will render your application.
+
+6️⃣  ReactDOM.createRoot(container).render(<App />);
+     - Creates a React “root” and renders the App component there.
+----------------------------------------------------- -->

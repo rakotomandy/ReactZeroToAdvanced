@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Basics</title>
+  </head>
+  <body>
+    <!-- The HTML element where React will inject all content -->
+    <div class="js-container"></div>
+
+    <!-- Load React (core library for creating components) -->
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+
+    <!-- Load ReactDOM (library for rendering React elements into the DOM) -->
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <!-- Load Babel (compiler that transforms JSX into JavaScript) -->
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+    <!-- The type "text/babel" allows writing JSX syntax directly -->
+    <script type="text/babel">
+      /****************************************************
+       * 1️⃣ DEFINE A REACT COMPONENT
+       ****************************************************/
+      function UseCard() {
+        return (
+          <>
+            <p>NAME: SHILPA</p>
+            <p>AGE: 30</p>
+            <h1>WELCOME TO REACT</h1>
+          </>
+        );
+      }
+
+      function App() {
+        return (
+          <>
+            <UseCard />
+            <UseCard />
+          </>
+        );
+      }
+
+      /****************************************************
+       * 2️⃣ SELECT WHERE TO RENDER IN THE HTML PAGE
+       ****************************************************/
+      const container = document.querySelector(".js-container");
+
+      /****************************************************
+       * 3️⃣ RENDER THE COMPONENT INSIDE THE CONTAINER
+       ****************************************************/
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>
+
+<!--
+📘 EXPLANATION SUMMARY
+----------------------------------------------------------
+1️⃣ <div class="js-container"></div>
+    - This empty div is the "root" where React will inject the component.
+
+2️⃣ <script src="https://unpkg.com/...">
+    - These script tags load React, ReactDOM, and Babel libraries directly from the web (no installation needed).
+
+3️⃣ <script type="text/babel">
+    - Allows JSX syntax (<p>...</p>) to be written inside JavaScript.
+      Babel converts JSX into regular JavaScript that browsers understand.
+
+4️⃣ function UseCard() { ... }
+    - Defines a functional React component.
+    - Components must start with a capital letter (e.g. UseCard, not useCard).
+    - It returns JSX — looks like HTML but runs in JS.
+    - The empty tags <></> are called a "React Fragment".
+      It lets you group multiple elements without creating an extra wrapper <div>.
+
+5️⃣ const container = document.querySelector('.js-container');
+    - Selects the div in which you want React to display the component.
+
+6️⃣ ReactDOM.createRoot(container).render(<UseCard/>);
+    - Tells React to render the <UseCard /> component inside the container div.
+    - <UseCard /> is JSX syntax that calls the UseCard() function internally.
+----------------------------------------------------------
+-->

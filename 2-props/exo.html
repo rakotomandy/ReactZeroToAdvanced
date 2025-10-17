@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Basics</title>
+  </head>
+  <body>
+    <!-- This empty div is the root container where React will render components -->
+    <div class="js-container"></div>
+
+    <!-- Importing React, ReactDOM, and Babel libraries -->
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+    <!-- Using Babel so JSX syntax (<div>...</div>) works directly -->
+    <script type="text/babel">
+      /****************************************************
+       * 1️⃣ CHILD COMPONENT — ProductCard
+       ****************************************************/
+      function ProductCard(props) {
+        return (
+          <>
+            <p>{props.product}</p>
+            <p>{props.price}</p>
+            <p>{props.description}</p>
+            <p>{props.rating}</p>
+            <hr />
+          </>
+        );
+      }
+
+   function Title(props){
+        return(
+          <h1>PRODUCT LISTS</h1>
+        )
+      }
+
+      /****************************************************
+       * 2️⃣ PARENT COMPONENT — App
+       ****************************************************/
+      function App() {
+        return (
+          <>
+            {/* Passing values as props to the ProductCard component */}
+            <Title style="text-align:center" />
+            <ProductCard
+              product="LAPTOP"
+              price="$900"
+              description="Powerful performance"
+              rating="⭐⭐⭐⭐"
+            />
+            <ProductCard
+              product="PHONE"
+              price="$400"
+              description="Compact and smart"
+              rating="⭐⭐⭐⭐"
+            />
+            <ProductCard
+              product="HEADPHONES"
+              price="$150"
+              description="Great sound quality"
+              rating="⭐⭐⭐⭐"
+            />
+          </>
+        );
+      }
+
+      /****************************************************
+       * 3️⃣ RENDERING THE ROOT COMPONENT
+       ****************************************************/
+      const container = document.querySelector(".js-container");
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>
+
+<!-- -----------------------------------------------------
+📘 EXPLANATION SUMMARY
+-------------------------------------------------------
+
+1️⃣ function ProductCard(props) { ... }
+     - Defines a React functional component named ProductCard.
+     - It receives one argument called "props".
+     - "props" is an object that contains all values passed
+       from the parent component (like product, price, description).
+       Example:
+         <ProductCard product="LAPTOP" price="$900" description="Powerful performance" />
+       makes props = { product: "LAPTOP", price: "$900", description: "Powerful performance" }
+
+2️⃣ JSX part:
+       <p>{props.product}</p>
+       <p>{props.price}</p>
+       <p>{props.description}</p>
+     - The curly braces {} let us display JavaScript values dynamically inside JSX.
+
+3️⃣ function App() { ... }
+     - The parent component that renders multiple ProductCard components.
+     - It passes different props to each ProductCard, making them reusable and dynamic.
+
+4️⃣ ReactDOM.createRoot(container).render(<App />);
+     - Connects React to the DOM by creating a "root" inside the div with class "js-container".
+     - Then it renders the <App /> component inside that root.
+
+5️⃣ <></> (React Fragment)
+     - A shorthand way to group multiple elements without creating an extra <div> in the DOM.
+     - It helps keep the structure clean.
+----------------------------------------------------- -->
