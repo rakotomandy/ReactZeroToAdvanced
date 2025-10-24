@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Conditional Rendering</title>
+  </head>
+  <body>
+    <!-- This div will serve as the container where our React app will be rendered -->
+    <div class="js-container"></div>
+
+    <!-- Load React, ReactDOM, and Babel (to allow JSX syntax in browser) -->
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+    <!-- Use type="text/babel" so Babel can convert JSX into normal JS before running -->
+    <script type="text/babel">
+      // Extract 'useState' Hook from React (allows function components to manage state)
+      const { useState } = React;
+
+      // Define a React component named HideShowMessage
+      function HideShowMessage() {
+        // Declare a state variable 'isShown' to control visibility of message
+        // useState(true) means the message is visible by default
+        const [isShown, setIsShown] = useState(true);
+
+        // Declare another state variable 'count' to track how many times button is clicked
+        const [count, setCount] = useState(0);
+
+        // Function to hide the message (sets 'isShown' to false)
+        function hideMessage() {
+          setIsShown(false);
+        }
+
+        // Function to show the message (sets 'isShown' to true)
+        function showMessage() {
+          setIsShown(true);
+        }
+
+        // Return JSX (what the component should render)
+        return (
+          <>
+            <div>
+              {/*
+                The button below toggles message visibility and increments count.
+                - When clicked, setIsShown(!isShown) flips the boolean value.
+                - setCount(count + 1) adds 1 to the current count.
+              */}
+              <button
+                onClick={() => {
+                  setIsShown(!isShown);
+                  setCount(count + 1);
+                }}
+              >
+                {/*
+                  Ternary operator:
+                  If isShown is true => show "hide"
+                  If false => show "show"
+                */}
+                {isShown ? "hide" : "show"}
+              </button>
+
+              {/*
+                This <span> displays the number of times the button was clicked.
+                The value of 'count' updates automatically when setCount changes it.
+              */}
+              <span>{count}</span>
+
+              {/*
+                Conditional rendering of the message:
+                If isShown is true => display "This is a dynamic message!"
+                Else => display nothing (empty string).
+              */}
+              <p>{isShown ? "This is a dynamic message!" : ""}</p>
+            </div>
+          </>
+        );
+      }
+
+      /****************************************************
+       * 2️⃣ RENDER COMPONENT TO THE PAGE
+       ****************************************************/
+
+      // Find the HTML container element (the div with class 'js-container')
+      const container = document.querySelector(".js-container");
+
+      // Tell React to create a root inside that container and render our component
+      ReactDOM.createRoot(container).render(<HideShowMessage />);
+    </script>
+  </body>
+</html>

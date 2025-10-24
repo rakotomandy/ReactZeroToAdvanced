@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Form Handling</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <!-- React and Babel -->
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+    <script type="text/babel">
+      const { useState } = React;
+
+      /****************************************************
+       * 1️⃣ FORM COMPONENT WITH STATE
+       ****************************************************/
+      function FormExample() {
+        // Declare two pieces of state for the form
+        const [firstName, setFirstName] = useState('');
+        const [lastName, setLastName] = useState('');
+
+        // Combine names when user submits
+        const [fullName, setFullName] = useState('');
+
+        // Called when form is submitted
+        function handleSubmit(event) {
+          event.preventDefault(); // Prevents page refresh
+          setFullName(firstName + ' ' + lastName); // Combine names
+        }
+
+        return (
+          <div>
+            <h2>React Form Example</h2>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                placeholder="First Name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+
+              <input
+                type="text"
+                placeholder="Last Name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+
+              <button type="submit">Submit</button>
+            </form>
+
+            {fullName && <p>Full Name: {fullName}</p>}
+          </div>
+        );
+      }
+
+      /****************************************************
+       * 2️⃣ RENDER THE COMPONENT
+       ****************************************************/
+      const container = document.querySelector('.js-container');
+      ReactDOM.createRoot(container).render(<FormExample />);
+    </script>
+  </body>
+</html>
+
+
+<!-- -----------------------------------------------------
+📘 DETAILED EXPLANATIONS
+-------------------------------------------------------
+
+1️⃣ Controlled Components:
+    - React "controls" the form fields through useState.
+    - The input’s value is always determined by React state.
+    - Any change triggers a state update.
+
+2️⃣ const [firstName, setFirstName] = useState('');
+    - Starts empty. Typing updates this value using setFirstName().
+
+3️⃣ onChange={(e) => setFirstName(e.target.value)}
+    - Every keystroke triggers onChange.
+    - e.target.value gives the new text inside the input.
+    - Updates React state → React re-renders the input value.
+
+4️⃣ handleSubmit(event)
+    - Prevents default form behavior (page refresh).
+    - Combines firstName and lastName into fullName.
+
+5️⃣ {fullName && <p>Full Name: {fullName}</p>}
+    - Conditional rendering: Only shows paragraph if fullName exists.
+
+6️⃣ Why useState for inputs?
+    - Keeps input values predictable and easy to control.
+    - Enables validation, live previews, and real-time updates.
+----------------------------------------------------- -->

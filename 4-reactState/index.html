@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React useState Example</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+    <script type="text/babel">
+
+      /****************************************************
+       * 1️⃣ IMPORT useState FROM REACT
+       ****************************************************/
+      const { useState } = React;
+
+      /****************************************************
+       * 2️⃣ COMPONENT WITH STATE
+       ****************************************************/
+      function Counter() {
+        // useState(initialValue) returns an array: [stateVariable, setterFunction]
+        const [count, setCount] = useState(0);
+
+        // Function to increment the counter
+        function increment() {
+          setCount(count + 1); // Updates the state and triggers re-render
+        }
+
+        // Function to decrement the counter
+        function decrement() {
+          setCount(count - 1); // Updates the state and triggers re-render
+        }
+
+        return (
+          <div>
+            <h2>Counter: {count}</h2>
+            <button onClick={increment}>Increase</button>
+            <button onClick={decrement}>Decrease</button>
+          </div>
+        );
+      }
+
+      /****************************************************
+       * 3️⃣ RENDER COMPONENT
+       ****************************************************/
+      const container = document.querySelector('.js-container');
+      ReactDOM.createRoot(container).render(<Counter />);
+    </script>
+  </body>
+</html>
+
+
+<!-- -----------------------------------------------------
+📘 DETAILED EXPLANATIONS
+-------------------------------------------------------
+
+1️⃣ const { useState } = React;
+     - Destructures useState from React.
+     - useState is a "hook" that allows functional components to hold state.
+
+2️⃣ const [count, setCount] = useState(0);
+     - count: current state value (initially 0)
+     - setCount: function to update "count"
+     - Calling setCount(newValue) automatically re-renders the component.
+
+3️⃣ function increment() { setCount(count + 1); }
+     - Updates the state by adding 1.
+     - React re-renders, updating the displayed value.
+
+4️⃣ function decrement() { setCount(count - 1); }
+     - Updates the state by subtracting 1.
+
+5️⃣ <button onClick={increment}>Increase</button>
+     - onClick: React event listener that triggers the increment function.
+
+6️⃣ <h2>Counter: {count}</h2>
+     - Displays the current state dynamically.
+     - Every time setCount is called, this updates automatically.
+
+7️⃣ Advantages of useState:
+     - Enables dynamic, interactive components
+     - Each component maintains its own independent state
+     - Re-render occurs automatically on state change
+----------------------------------------------------- -->

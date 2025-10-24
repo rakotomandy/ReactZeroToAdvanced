@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Props Destructuring & Default Props</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+    <script type="text/babel">
+
+      /****************************************************
+       * 1️⃣ CHILD COMPONENT WITH DESTRUCTURED PROPS
+       ****************************************************/
+      function ProductCard({ product, price, description, rating = "⭐⭐⭐" }) {
+        // Here we "destructure" props directly in the function arguments
+        // and provide a default value for "rating" if not passed.
+        return (
+          <div>
+            <h2>{product}</h2>
+            <p>Price: {price}</p>
+            <p>Description: {description}</p>
+            <p>Rating: {rating}</p>
+            <hr />
+          </div>
+        );
+      }
+
+      /****************************************************
+       * 2️⃣ PARENT COMPONENT PASSING SOME OR ALL PROPS
+       ****************************************************/
+      function App() {
+        return (
+          <div>
+            <h1>Product List</h1>
+            <ProductCard product="Laptop" price="$900" description="Powerful performance" rating="⭐⭐⭐⭐⭐" />
+            <ProductCard product="Phone" price="$400" description="Compact and smart" />
+            <ProductCard product="Headphones" price="$150" description="Great sound quality" rating="⭐⭐⭐⭐" />
+          </div>
+        );
+      }
+
+      /****************************************************
+       * 3️⃣ RENDER THE PARENT COMPONENT
+       ****************************************************/
+      const container = document.querySelector('.js-container');
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>
+
+
+<!-- -----------------------------------------------------
+📘 DETAILED EXPLANATIONS
+-------------------------------------------------------
+
+1️⃣ function ProductCard({ product, price, description, rating = "⭐⭐⭐" }) { ... }
+     - Instead of writing "props.product", "props.price", etc.,
+       we destructure props directly in the function arguments.
+     - Default props: rating = "⭐⭐⭐"
+       If the parent does NOT pass the rating prop, the component will use "⭐⭐⭐".
+
+2️⃣ JSX:
+       <p>Rating: {rating}</p>
+     - Displays the value of the "rating" prop dynamically.
+
+3️⃣ function App() { ... }
+     - Parent component renders multiple ProductCard components.
+     - Some components pass "rating", others don’t.
+     - React uses the default value if a prop is missing.
+
+4️⃣ ReactDOM.createRoot(container).render(<App />);
+     - Connects the React app to the DOM and renders the App component.
+
+5️⃣ Advantages:
+     - Cleaner syntax (no props.product repeatedly)
+     - Provides default values, reducing errors
+     - Makes components more reusable
+----------------------------------------------------- -->

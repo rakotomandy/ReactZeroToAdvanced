@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Basics</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+      function UserProfile({name,age,role="Member"}){
+        return(
+          <>
+            <p>{name}</p>
+            <p>{age}</p>
+            <p>{role}</p>
+            <hr />
+          </>
+        )
+      }
+
+      function App(){
+        return(
+          <>
+            <UserProfile name="Shilpa" age="30"/>
+            <UserProfile name="Eric" age="Admin" />
+            <UserProfile name="Janet" age="28"/>
+          </>
+        )
+      }
+      const container = document.querySelector('.js-container');
+      ReactDOM.createRoot(container).render(<App/>);
+    </script>
+  </body>
+</html>

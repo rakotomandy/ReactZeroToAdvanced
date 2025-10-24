@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Basics</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <!-- React and Babel -->
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+    <script type="text/babel">
+      function Credentials() {
+        // Create state variables for email and password
+        const [email, setEmail] = React.useState("");
+        const [password, setPassword] = React.useState("");
+
+        // Store combined credentials when submitted
+        const [credential, setCredential] = React.useState("");
+
+        // Function runs when form is submitted
+        function handleSubmit(e) {
+          e.preventDefault(); // Stop page from refreshing
+
+          // Simple validation
+          if (email === "" || password === "") {
+            alert("Please fill in both fields!");
+            return;
+          }
+
+          // Combine and store email + password in state
+          setCredential(`Email: ${email} | Password: ${password}`);
+        }
+
+        return (
+          <>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="email"
+                placeholder="Enter email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <input
+                type="password"
+                placeholder="Enter password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <button type="submit">CLICK</button>
+            </form>
+
+            {/* Display credential only if it exists */}
+            {credential && <p>{credential}</p>}
+          </>
+        );
+      }
+
+      // Render the component
+      const container = document.querySelector(".js-container");
+      ReactDOM.createRoot(container).render(<Credentials />);
+    </script>
+  </body>
+</html>
+
+<!--
+────────────────────────────────────────────
+📘 EXPLANATION OF EACH PART
+────────────────────────────────────────────
+
+1️⃣ const [email, setEmail] = React.useState("");
+   - Declares 'email' as a state variable.
+   - Initially empty string.
+   - 'setEmail' is used to update it when typing.
+
+2️⃣ const [password, setPassword] = React.useState("");
+   - Stores the password value.
+   - Also starts empty.
+
+3️⃣ const [credential, setCredential] = React.useState("");
+   - Will hold the final text "Email: ... | Password: ..."
+   - Used to display it after submission.
+
+4️⃣ function handleSubmit(e)
+   - Handles the form submit event.
+   - e.preventDefault() stops the browser from reloading the page.
+
+5️⃣ Validation:
+   if (email === "" || password === "") alert(...);
+   - Checks if user left any field empty before proceeding.
+
+6️⃣ setCredential(`Email: ${email} | Password: ${password}`);
+   - Combines and saves the data into credential state.
+   - Using template literals for readability.
+
+7️⃣ {credential && <p>{credential}</p>}
+   - Conditional rendering:
+     If 'credential' is not empty, the paragraph is shown.
+
+8️⃣ ReactDOM.createRoot(container).render(<Credentials />);
+   - Finds the div with class 'js-container'.
+   - Mounts our React component inside it.
+
+────────────────────────────────────────────
+💡 COMMON MISTAKES FIXED:
+────────────────────────────────────────────
+❌ Returning JSX inside handleSubmit() — React ignores it.
+✅ Always return JSX from the component itself, not from event functions.
+
+❌ Typo: "crendential"
+✅ Correct variable name is "credential".
+
+❌ Missing validation for empty input.
+✅ Added alert to guide the user.
+
+────────────────────────────────────────────
+✅ RESULT:
+────────────────────────────────────────────
+- You type an email and password.
+- When you click the button:
+     → If empty: shows an alert.
+     → If filled: shows "Email: ... | Password: ..."
+────────────────────────────────────────────
+-->

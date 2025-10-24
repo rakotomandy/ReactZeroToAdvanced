@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Lists and Keys</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <!-- Load React and Babel (for JSX support) -->
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+    <script type="text/babel">
+      // Import useState Hook
+      const { useState } = React;
+
+      // Define a functional component
+      function ShoppingList() {
+        // useState to hold a list of products (array of objects)
+        const [products, setProducts] = useState([
+          { id: 1, name: "Laptop", price: 900 },
+          { id: 2, name: "Phone", price: 400 },
+          { id: 3, name: "Headphones", price: 150 },
+        ]);
+
+        // Function to add a new product when the button is clicked
+        function addProduct() {
+          const newProduct = {
+            id: products.length + 1, // unique key (simple method)
+            name: "Tablet",
+            price: 500,
+          };
+          // Create a new array (spread operator keeps previous items)
+          setProducts([...products, newProduct]);
+        }
+
+        // Return JSX
+        return (
+          <>
+            <h2>🛒 Shopping List</h2>
+            {/*
+              Use .map() to loop through the products array.
+              Each child in a list should have a unique "key" prop.
+              'key' helps React identify which items have changed.
+            */}
+            <ul>
+              {products.map((item) => (
+                <li key={item.id}>
+                  {item.name} — ${item.price}
+                </li>
+              ))}
+            </ul>
+
+            {/* Button to add a new item */}
+            <button onClick={addProduct}>Add Tablet</button>
+          </>
+        );
+      }
+
+      // Render our component to the page
+      const container = document.querySelector(".js-container");
+      ReactDOM.createRoot(container).render(<ShoppingList />);
+
+      /*******************************************************
+       EXPLANATION:
+       -------------------------------------------------------
+       1️⃣ We used useState() to store a list of products.
+       2️⃣ .map() loops through that array and returns <li> elements.
+       3️⃣ Each <li> has a key={item.id} for React’s internal tracking.
+       4️⃣ Clicking the button calls addProduct(),
+           which adds a new "Tablet" to the list.
+       5️⃣ React re-renders automatically when state changes.
+       *******************************************************/
+    </script>
+  </body>
+</html>

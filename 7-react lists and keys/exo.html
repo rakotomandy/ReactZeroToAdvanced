@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Random Products</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+    <script type="text/babel">
+      const { useState } = React;
+
+      function ShoppingList() {
+        // Initial product list
+        const [products, setProducts] = useState([
+          { name: "LAPTOP", price: "150$", id: 1 },
+          { name: "PHONE", price: "50$", id: 2 },
+          { name: "MOUSE", price: "10$", id: 3 },
+          { name: "EARPHONES", price: "5$", id: 4 },
+          { name: "CABLE", price: "10$", id: 5 },
+        ]);
+
+        // Array of possible product names
+        const productNames = [
+          "TABLET",
+          "MONITOR",
+          "KEYBOARD",
+          "USB DRIVE",
+          "CHARGER",
+          "SPEAKER",
+        ];
+
+        // Function to generate a random integer between min and max (inclusive)
+        function getRandomInt(min, max) {
+          return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function addProduct() {
+          // Pick a random name from the productNames array
+          const randomName =
+            productNames[getRandomInt(0, productNames.length - 1)];
+
+          // Pick a random price between 5$ and 200$
+          const randomPrice = getRandomInt(5, 200) + "$";
+
+          // Generate a unique id based on existing products
+          const randomId =
+            products.length > 0
+              ? Math.max(...products.map((p) => p.id)) + 1
+              : 1;
+
+          const newProduct = {
+            name: randomName,
+            price: randomPrice,
+            id: randomId,
+          };
+
+          // Add the new product to the array
+          setProducts((prev) => [...prev, newProduct]);
+        }
+        function removeLast() {
+          setProducts((prev) => prev.slice(0, -1));
+        }
+
+        return (
+          <>
+            <h2>🛒 Shopping List</h2>
+            <ul>
+              {products.map((product) => (
+                // Each <li> must have a unique key
+                <li key={product.id}>
+                  {product.name} - {product.price}
+                </li>
+              ))}
+            </ul>
+            <button onClick={addProduct}>ADD RANDOM PRODUCT</button>
+            <button onClick={removeLast}>REMOVE LAST PRODUCT</button>
+          </>
+        );
+      }
+
+      // Render the component inside the container
+      const container = document.querySelector(".js-container");
+      ReactDOM.createRoot(container).render(<ShoppingList />);
+    </script>
+  </body>
+</html>

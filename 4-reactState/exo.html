@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Basics</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script src="../tailwind.js"></script>
+    <script type="text/babel">
+      function LikesCount() {
+        const [likes, setLikes] = React.useState(0);
+
+        function incrementLike() {
+          setLikes(likes + 1);
+        }
+        function decrementLike() {
+          setLikes(likes - 1);
+        }
+        function resetLike() {
+          setLikes(0);
+        }
+
+        return (
+          <>
+            <p className="font-bold text-center text-2xl">LIKE:{likes}</p>
+            <div className="flex justify-center gap-2">
+              <button className="bg-blue-200 p-1 rounded font-bold hover:cursor-pointer" onClick={incrementLike}>INCREMENT</button>
+              <button className="bg-red-200 p-1 rounded font-bold hover:cursor-pointer" onClick={decrementLike}>DECREMENT</button>
+              <button className="bg-green-200 p-1 rounded font-bold hover:cursor-pointer" onClick={resetLike}>RESET</button>
+            </div>
+          </>
+        );
+      }
+      const container = document.querySelector(".js-container");
+      ReactDOM.createRoot(container).render(<LikesCount />);
+    </script>
+  </body>
+</html>
